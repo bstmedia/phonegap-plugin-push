@@ -16,6 +16,7 @@
     <engine name="cordova-android" version=">=6.0.0"/>
     <engine name="cordova-ios" version=">=4.3.0"/>
   </engines>
+  <preference name="SENDER_ID" default="1:211785934745:android:b667a480fc239a81"/>
   <platform name="android">
     <config-file target="res/xml/config.xml" parent="/*">
       <feature name="PushNotification">
