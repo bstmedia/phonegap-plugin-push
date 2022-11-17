@@ -346,7 +346,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
         notificationIntent.putExtra(NOT_ID, notId);
 
         int requestCode = new Random().nextInt();
-        PendingIntent contentIntent = PendingIntent.getActivity(this, requestCode, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(this, requestCode, notificationIntent, 33554432);
 
         Intent dismissedNotificationIntent = new Intent(this, PushDismissedHandler.class);
         dismissedNotificationIntent.putExtra(PUSH_BUNDLE, extras);
@@ -355,7 +355,7 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
         dismissedNotificationIntent.setAction(PUSH_DISMISSED);
 
         requestCode = new Random().nextInt();
-        PendingIntent deleteIntent = PendingIntent.getBroadcast(this, requestCode, dismissedNotificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent deleteIntent = PendingIntent.getBroadcast(this, requestCode, dismissedNotificationIntent, 33554432);
 
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
@@ -499,19 +499,19 @@ public class GCMIntentService extends GcmListenerService implements PushConstant
 
                         if (android.os.Build.VERSION.SDK_INT <= android.os.Build.VERSION_CODES.M) {
                             Log.d(LOG_TAG, "push activity for notId " + notId);
-                            pIntent = PendingIntent.getActivity(this, uniquePendingIntentRequestCode, intent, PendingIntent.FLAG_ONE_SHOT);
+                            pIntent = PendingIntent.getActivity(this, uniquePendingIntentRequestCode, intent, 33554432);
                         } else {
                             Log.d(LOG_TAG, "push receiver for notId " + notId);
-                            pIntent = PendingIntent.getBroadcast(this, uniquePendingIntentRequestCode, intent, PendingIntent.FLAG_ONE_SHOT);
+                            pIntent = PendingIntent.getBroadcast(this, uniquePendingIntentRequestCode, intent, 33554432);
                         }
                     } else if (foreground) {
                         intent = new Intent(this, PushHandlerActivity.class);
                         updateIntent(intent, action.getString(CALLBACK), extras, foreground, notId);
-                        pIntent = PendingIntent.getActivity(this, uniquePendingIntentRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        pIntent = PendingIntent.getActivity(this, uniquePendingIntentRequestCode, intent, 33554432);
                     } else {
                         intent = new Intent(this, BackgroundActionButtonHandler.class);
                         updateIntent(intent, action.getString(CALLBACK), extras, foreground, notId);
-                        pIntent = PendingIntent.getBroadcast(this, uniquePendingIntentRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                        pIntent = PendingIntent.getBroadcast(this, uniquePendingIntentRequestCode, intent, 33554432);
                     }
 
                     NotificationCompat.Action.Builder actionBuilder =
